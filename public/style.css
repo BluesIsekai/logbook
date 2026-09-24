@@ -155,7 +155,7 @@ body {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2.25rem;
-  animation: animFadeDown 550ms var(--ease-editorial) 0ms both;
+  animation: animFadeUp 450ms var(--ease-editorial) 0ms both;
 }
 
 @media (min-width: 768px) {
@@ -273,7 +273,7 @@ body {
   letter-spacing: 0.07em;
   color: var(--text-muted);
   margin-bottom: 1rem;
-  animation: animFadeUp 600ms var(--ease-editorial) 80ms both;
+  animation: animFadeUp 500ms var(--ease-editorial) 100ms both;
 }
 
 @media (min-width: 1200px) {
@@ -331,7 +331,7 @@ body {
   letter-spacing: -0.025em;
   color: var(--text-crisp);
   margin-bottom: 0.85rem;
-  animation: animFadeUp 650ms var(--ease-editorial) 160ms both;
+  animation: animFadeUp 650ms var(--ease-editorial) 150ms both;
 }
 
 @media (min-width: 640px) {
@@ -383,7 +383,7 @@ body {
   line-height: 1.58;
   color: var(--text-lead);
   margin-bottom: 0;
-  animation: animFadeUp 600ms var(--ease-editorial) 240ms both;
+  animation: animFadeUp 500ms var(--ease-editorial) 250ms both;
 }
 
 @media (min-width: 640px) {
@@ -430,7 +430,7 @@ body {
   flex-direction: column;
   gap: 0.5rem;
   transition: border-color 0.25s ease;
-  animation: animFadeUp 650ms var(--ease-editorial) 320ms both;
+  animation: animFadeUp 600ms var(--ease-editorial) 350ms both;
 }
 
 @media (min-width: 640px) {
@@ -671,7 +671,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  animation: animFadeUp 500ms var(--ease-editorial) 400ms both;
+  animation: animFadeUp 450ms var(--ease-editorial) 450ms both;
 }
 
 @media (min-width: 768px) {
@@ -709,18 +709,7 @@ body {
 @keyframes animFadeUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes animFadeDown {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
