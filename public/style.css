@@ -1,0 +1,739 @@
+/* ==========================================================================
+   LOGBOOK — Soft Indie Product Design
+   Unified centered desktop composition with cohesive horizontal alignment
+   ========================================================================== */
+
+:root {
+  /* Canvas & Warm Dark Surfaces */
+  --bg-canvas: #0f0f12;
+  --surface-container: #16151b;
+  --surface-subdued: #1b1a22;
+  --surface-well: #0c0b0f;
+
+  /* Softer Borders */
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --border-soft-hover: rgba(255, 255, 255, 0.16);
+  --border-accent: #f5b5ae;
+
+  /* Brand Accents */
+  --primary: #f5b5ae;       /* Warm Peach Coral */
+  --on-primary: #0f0f12;
+  --secondary: #f2d68c;     /* Butter Yellow */
+  --on-secondary: #0f0f12;
+  --accent: #beb4dc;        /* Wistful Lavender */
+  --mint: #98d9b6;          /* Soft Mint */
+
+  /* Text Tiers */
+  --text-crisp: #f0eff4;
+  --text-lead: #c9c7d4;
+  --text-muted: #8e8d9c;
+  --text-subtle: #5f5e6d;
+
+  /* State Tones */
+  --error: #ffb4ab;
+  --error-bg: rgba(255, 180, 171, 0.08);
+  --error-border: rgba(255, 180, 171, 0.25);
+  --success: #98d9b6;
+  --success-bg: rgba(152, 217, 182, 0.08);
+  --success-border: rgba(152, 217, 182, 0.25);
+
+  /* Typography */
+  --font-display: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, monospace;
+
+  /* Gentle, Moderately Rounded Geometry */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Motion Easing */
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* CSS Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  background-color: var(--bg-canvas);
+  color: var(--text-crisp);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  background-color: var(--bg-canvas);
+  color: var(--text-crisp);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+/* Visually Hidden for Accessibility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   Single Centered Desktop Content Wrapper (1000–1060px)
+   The entire composition shares one centered column on the viewport
+   ========================================================================== */
+
+.site-wrapper {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  padding: 2rem 1.25rem 2.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  .site-wrapper {
+    max-width: 620px;
+    padding: 2.25rem 1.75rem 2.5rem 1.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-wrapper {
+    max-width: 760px;
+    padding: 2.75rem 2.25rem 3rem 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-wrapper {
+    max-width: 880px;
+    padding: 3rem 2.5rem 3.25rem 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .site-wrapper {
+    max-width: 1020px;
+    padding: 3.25rem 2.75rem 3.5rem 2.75rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .site-wrapper {
+    max-width: 1060px;
+    padding: 3.75rem 3rem 4rem 3rem;
+  }
+}
+
+/* ==========================================================================
+   Header: Stretches Across the Centered Wrapper
+   LOGBOOK on the left, EARLY ACCESS on the right
+   ========================================================================== */
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.25rem;
+  animation: animFadeDown 550ms var(--ease-editorial) 0ms both;
+}
+
+@media (min-width: 768px) {
+  .header {
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .header {
+    margin-bottom: 2.75rem;
+  }
+}
+
+.brand {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.brand:hover {
+  opacity: 0.85;
+}
+
+.brand-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-crisp);
+}
+
+@media (min-width: 1200px) {
+  .brand-text {
+    font-size: 1.25rem;
+  }
+}
+
+.early-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  background-color: var(--surface-container);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 5px 9px;
+  line-height: 1;
+}
+
+@media (min-width: 1200px) {
+  .early-badge {
+    font-size: 11px;
+    padding: 6px 11px;
+  }
+}
+
+/* ==========================================================================
+   Main Flow: Cohesive, Balanced Vertical Flow
+   ========================================================================== */
+
+.main-flow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  flex-grow: 1;
+}
+
+@media (min-width: 768px) {
+  .main-flow {
+    gap: 2.75rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-flow {
+    gap: 3rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .main-flow {
+    gap: 3.25rem;
+  }
+}
+
+/* ==========================================================================
+   Section 1: Hero / What is Logbook
+   Left-aligned within the centered container, filling its width
+   ========================================================================== */
+
+.intro-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Classification Strip */
+.media-classification {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--surface-container);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  width: fit-content;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  animation: animFadeUp 600ms var(--ease-editorial) 80ms both;
+}
+
+@media (min-width: 1200px) {
+  .media-classification {
+    font-size: 11px;
+    padding: 7px 14px;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+}
+
+.media-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+}
+
+@media (min-width: 1200px) {
+  .pill-dot {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+.dot-watch {
+  background-color: var(--primary);
+}
+
+.dot-play {
+  background-color: var(--mint);
+}
+
+.dot-read {
+  background-color: var(--secondary);
+}
+
+.pill-separator {
+  color: var(--text-subtle);
+  font-weight: 400;
+}
+
+/* Hero Headline: Bold, expansive across the centered block */
+.intro-headline {
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--text-crisp);
+  margin-bottom: 0.85rem;
+  animation: animFadeUp 650ms var(--ease-editorial) 160ms both;
+}
+
+@media (min-width: 640px) {
+  .intro-headline {
+    font-size: 3.35rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .intro-headline {
+    font-size: 3.85rem;
+    line-height: 1.08;
+    margin-bottom: 1.1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .intro-headline {
+    font-size: 4.35rem;
+    line-height: 1.06;
+  }
+}
+
+@media (min-width: 1200px) {
+  .intro-headline {
+    font-size: 5rem; /* 80px */
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.15rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .intro-headline {
+    font-size: 5.25rem; /* 84px */
+    line-height: 1.04;
+    margin-bottom: 1.25rem;
+  }
+}
+
+/* Concise Statement: Left-aligned, readable across the composition */
+.intro-statement {
+  width: 100%;
+  max-width: 100%;
+  font-family: var(--font-body);
+  font-size: 1.12rem;
+  line-height: 1.58;
+  color: var(--text-lead);
+  margin-bottom: 0;
+  animation: animFadeUp 600ms var(--ease-editorial) 240ms both;
+}
+
+@media (min-width: 640px) {
+  .intro-statement {
+    font-size: 1.18rem;
+    max-width: 620px;
+  }
+}
+
+@media (min-width: 768px) {
+  .intro-statement {
+    font-size: 1.22rem;
+    max-width: 720px;
+    line-height: 1.6;
+  }
+}
+
+@media (min-width: 1200px) {
+  .intro-statement {
+    font-size: 1.25rem; /* 20px */
+    max-width: 860px;
+    line-height: 1.62;
+  }
+}
+
+/* ==========================================================================
+   Section 2: Waitlist
+   Shares the exact same horizontal boundaries as the centered container
+   ========================================================================== */
+
+.waitlist-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.waitlist-card {
+  width: 100%;
+  background-color: var(--surface-container);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.25s ease;
+  animation: animFadeUp 650ms var(--ease-editorial) 320ms both;
+}
+
+@media (min-width: 640px) {
+  .waitlist-card {
+    padding: 2rem 1.75rem;
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (min-width: 768px) {
+  .waitlist-card {
+    padding: 2.25rem 2.25rem;
+    border-radius: var(--radius-xl);
+    gap: 0.6rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .waitlist-card {
+    padding: 2.5rem 2.5rem;
+    border-radius: var(--radius-xl);
+    gap: 0.65rem;
+  }
+}
+
+.waitlist-card:focus-within {
+  border-color: var(--border-soft-hover);
+}
+
+.waitlist-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-crisp);
+}
+
+@media (min-width: 640px) {
+  .waitlist-title {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .waitlist-title {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .waitlist-title {
+    font-size: 2.25rem;
+  }
+}
+
+.waitlist-copy {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .waitlist-copy {
+    font-size: 1rem;
+    max-width: 580px;
+    margin-bottom: 0.75rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .waitlist-copy {
+    font-size: 1.05rem;
+    max-width: 660px;
+    margin-bottom: 0.85rem;
+  }
+}
+
+/* Input & Button Group: Tactile, Friendly, Rounded */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+@media (min-width: 580px) {
+  .input-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .input-group {
+    max-width: 600px;
+    gap: 14px;
+  }
+}
+
+.email-input {
+  flex: 1;
+  height: 48px;
+  background-color: var(--surface-well);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0 16px;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--text-crisp);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+@media (min-width: 1200px) {
+  .email-input {
+    height: 52px;
+    padding: 0 20px;
+    font-size: 15px;
+  }
+}
+
+.email-input::placeholder {
+  color: var(--text-subtle);
+}
+
+.email-input:focus {
+  border-color: var(--primary);
+  background-color: #0e0d13;
+  box-shadow: 0 0 0 3px rgba(245, 181, 174, 0.12);
+}
+
+.email-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.email-input[aria-invalid="true"] {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.12);
+}
+
+.submit-button {
+  height: 48px;
+  padding: 0 22px;
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+@media (min-width: 1200px) {
+  .submit-button {
+    height: 52px;
+    padding: 0 26px;
+    font-size: 14.5px;
+  }
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: var(--secondary);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.submit-button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+/* Loading spinner */
+.spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--on-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-left: 8px;
+}
+
+.submit-button.is-loading .spinner {
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Feedback messages */
+.waitlist-feedback {
+  margin-top: 10px;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+  transition: opacity 0.2s ease;
+  line-height: 1.5;
+}
+
+.feedback-success {
+  background-color: var(--success-bg);
+  border: 1px solid var(--success-border);
+  color: var(--success);
+  padding: 10px 14px;
+}
+
+.feedback-error {
+  background-color: var(--error-bg);
+  border: 1px solid var(--error-border);
+  color: var(--error);
+  padding: 10px 14px;
+}
+
+/* ==========================================================================
+   Footer: Anchors the Bottom of the Centered Wrapper
+   ========================================================================== */
+
+.footer {
+  width: 100%;
+  margin-top: 2.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: animFadeUp 500ms var(--ease-editorial) 400ms both;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    margin-top: 2.75rem;
+    padding-top: 1.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.65rem;
+  }
+}
+
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-subtle);
+}
+
+@media (min-width: 1200px) {
+  .footer-text {
+    font-size: 12px;
+  }
+}
+
+/* ==========================================================================
+   Editorial Entrance Motion
+   Subtle staggered fade/translate reveal on initial load
+   ========================================================================== */
+
+@keyframes animFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibility: Respect Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.001ms !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
