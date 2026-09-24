@@ -121,7 +121,13 @@ const server = http.createServer((req, res) => {
   res.setHeader('X-Frame-Options', 'DENY');
 
   // Handle Waitlist API endpoint
-  if (req.url === '/api/waitlist' && req.method === 'POST') {
+  if (req.url === '/api/waitlist') {
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', 'POST');
+      res.writeHead(405, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Method not allowed' }));
+    }
+
     let body = '';
     req.on('data', chunk => {
       body += chunk;
@@ -135,20 +141,9 @@ const server = http.createServer((req, res) => {
         const data = JSON.parse(body || '{}');
         const email = (data.email || '').trim().toLowerCase();
 
-        if (!email) {
+        if (!email || !EMAIL_REGEX.test(email) || email.length > 254) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
-          return res.end(JSON.stringify({
-            success: false,
-            error: 'Email address is required.'
-          }));
-        }
-
-        if (!EMAIL_REGEX.test(email) || email.length > 254) {
-          res.writeHead(400, { 'Content-Type': 'application/json' });
-          return res.end(JSON.stringify({
-            success: false,
-            error: 'Please enter a valid email address.'
-          }));
+          return res.end(JSON.stringify({ error: 'Invalid email' }));
         }
 
         const userAgent = req.headers['user-agent'] || 'Unknown';
@@ -157,25 +152,16 @@ const server = http.createServer((req, res) => {
         const forwardResult = await forwardToDiscord(email, userAgent, clientIp);
 
         if (!forwardResult.success && !forwardResult.mock) {
-          res.writeHead(502, { 'Content-Type': 'application/json' });
-          return res.end(JSON.stringify({
-            success: false,
-            error: 'Failed to record waitlist entry. Please try again shortly.'
-          }));
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          return res.end(JSON.stringify({ error: 'Something went wrong' }));
         }
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({
-          success: true,
-          message: "You're on the list. We'll let you know when it's ready."
-        }));
+        return res.end(JSON.stringify({ success: true }));
       } catch (err) {
         console.error('[Server] Invalid waitlist request body:', err.message);
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({
-          success: false,
-          error: 'Invalid request format.'
-        }));
+        return res.end(JSON.stringify({ error: 'Invalid email' }));
       }
     });
     return;
